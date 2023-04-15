@@ -1,0 +1,21 @@
+[build-system]
+requires = ['setuptools>=61.0']
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = 'SpaceInvaderDQN'
+version = '0.0.1'
+authors = [
+  { name='Brandon Knape', email='d.brandonk@gmail.com' },
+]
+description = 'SpaceInvaderDQN'
+readme = 'README.md'
+requires-python = '>=3.7'
+dependencies = [
+    'autorom[accept-rom-license]',
+    'gym[atari]',
+    'ray[tune]',
+    'ray[rllib]',
+    'tensorboard',
+    'torch',
+]
