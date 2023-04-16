@@ -13,9 +13,11 @@ readme = 'README.md'
 requires-python = '>=3.7'
 dependencies = [
     'autorom[accept-rom-license]',
-    'gym[atari]',
+    'dm_tree',
+    'gymnasium[atari]',
     'ray[tune]',
     'ray[rllib]',
+    'scikit-image',
     'tensorboard',
     'torch',
 ]
