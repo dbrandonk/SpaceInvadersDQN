@@ -5,6 +5,7 @@ from ray.tune.logger import pretty_print
 
 # Define the configuration for the DQN agent
 config = DQNConfig()
+
 config.environment('SpaceInvaders-v4')
 config.framework('torch')
 
@@ -14,18 +15,20 @@ ray.init()
 # Create train object.
 trainer = DQN(config=config)
 
-# Train the agent for 100 iterations
-for i in range(100):
+# Train the agent
+for i in range(1):
     result = trainer.train()
     print(pretty_print(result))
 
 # Use the trained agent to play the game
-env = gym.make('SpaceInvaders-v0')
-obs = env.reset()
+env = gym.make('SpaceInvaders-v4', render_mode='human')
+env.metadata['render_fps'] = 30
+obs, info = env.reset()
 done = False
+
 while not done:
-    action = trainer.compute_action(obs)
-    obs, reward, done, info = env.step(action)
+    action = trainer.compute_single_action(obs)
+    obs, reward, done, truncated, info = env.step(action)
     env.render()
 env.close()
 
