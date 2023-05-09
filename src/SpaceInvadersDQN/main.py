@@ -9,6 +9,8 @@ config = DQNConfig()
 config.environment('SpaceInvaders-v4')
 config.framework('torch')
 
+config.training(gamma=0.99, lr=0.005, train_batch_size=32, optimizer={'type':'Adam'})
+
 # Initialize Ray
 ray.init()
 
@@ -31,4 +33,3 @@ while not done:
     obs, reward, done, truncated, info = env.step(action)
     env.render()
 env.close()
-
