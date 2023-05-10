@@ -9,7 +9,20 @@ config = DQNConfig()
 config.environment('SpaceInvaders-v4')
 config.framework('torch')
 
-config.training(gamma=0.99, lr=0.005, train_batch_size=32, optimizer={'type':'Adam'})
+space_invader_model = {
+    "fcnet_hiddens": [256, 256],
+    "fcnet_activation": "relu",
+    "framestack": True, # True enables 4x stacking behavior.
+    "dim": 84, # Final resized frame dimension
+}
+
+config.training(
+    gamma=0.99,
+    lr=0.005,
+    model=space_invader_model,
+    train_batch_size=32,
+    optimizer={
+        'type': 'Adam'})
 
 # Initialize Ray
 ray.init()
@@ -18,7 +31,7 @@ ray.init()
 trainer = DQN(config=config)
 
 # Train the agent
-for i in range(1):
+for i in range(100):
     result = trainer.train()
     print(pretty_print(result))
 
