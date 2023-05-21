@@ -1,9 +1,7 @@
 import gymnasium as gym
 import ray
 from ray.rllib.algorithms.dqn import DQN, DQNConfig
-from ray.tune.logger import pretty_print
 
-# Define the configuration for the DQN agent
 config = DQNConfig()
 
 config.environment('SpaceInvaders-v4')
@@ -24,16 +22,13 @@ config.training(
     optimizer={
         'type': 'Adam'})
 
-# Initialize Ray
-ray.init()
-
-# Create train object.
 trainer = DQN(config=config)
 
-# Train the agent
-for i in range(100):
+ray.init()
+num_episodes = 100
+for episode in range(num_episodes):
     result = trainer.train()
-    print(pretty_print(result))
+    print("Completed Episode:{episode} of {num_episodes}")
 
 # Use the trained agent to play the game
 env = gym.make('SpaceInvaders-v4', render_mode='human')
