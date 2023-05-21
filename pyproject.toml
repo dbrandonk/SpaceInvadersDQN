@@ -12,13 +12,13 @@ description = 'SpaceInvaderDQN'
 readme = 'README.md'
 requires-python = '>=3.7'
 dependencies = [
-    'autorom[accept-rom-license]==0.6.1',
-    'dm_tree==0.1.8',
-    'gymnasium[atari]==0.26.3',
-    'protobuf==3.20.0',
-    'ray[tune]==2.4.0',
-    'ray[rllib]==2.4.0',
-    'scikit-image==0.20.0',
-    'tensorboard==2.13.0',
-    'torch==2.0.0',
+    'gputil',
+    'gymnasium[atari]',
+    'gymnasium[accept-rom-license]',
+    'lz4',
+    'protobuf',
+    'ray[tune]',
+    'ray[rllib]',
+    'tensorboard',
+    'torch',
 ]
