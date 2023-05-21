@@ -1,3 +1,5 @@
+import gymnasium as gym
+
 env = gym.make('SpaceInvaders-v4', render_mode='human')
 env.metadata['render_fps'] = 30
 obs, info = env.reset()
