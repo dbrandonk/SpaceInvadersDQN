@@ -21,7 +21,7 @@ exploration_config = {
     'epsilon_timesteps': 500000}
 config.exploration(explore=True, exploration_config=exploration_config)
 
-replay_buffer_config = {'type': 'MultiAgentPrioritizedReplayBuffer', 'prioritized_replay': -1, 'capacity': 100000, 'replay_sequence_length': 1}
+replay_buffer_config = {'type': 'MultiAgentPrioritizedReplayBuffer', 'prioritized_replay': -1, 'capacity': 200000, 'replay_sequence_length': 1}
 
 config.training(
     double_q=True,
