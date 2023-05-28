@@ -17,25 +17,33 @@ space_invader_model = {
 exploration_config = {
     'type': 'EpsilonGreedy',
     'initial_epsilon': 1.0,
-    'final_epsilon': 0.01,
-    'epsilon_timesteps': 100000}
+    'final_epsilon': 0.1,
+    'epsilon_timesteps': 500000}
 config.exploration(explore=True, exploration_config=exploration_config)
 
-config.checkpointing(export_native_model_files=True)
+replay_buffer_config = {'type': 'MultiAgentPrioritizedReplayBuffer', 'prioritized_replay': -1, 'capacity': 100000, 'replay_sequence_length': 1}
 
 config.training(
+    double_q=True,
+    dueling=False,
     gamma=0.99,
-    lr=0.005,
+    lr=0.0005,
     model=space_invader_model,
+    n_step=1,
+    noisy=False,
+    num_atoms=1,
+    optimizer={'type': 'Adam'},
+    replay_buffer_config=replay_buffer_config,
+    target_network_update_freq=10000,
     train_batch_size=32,
-    optimizer={
-        'type': 'Adam'})
+    training_intensity=None
+    )
 
 dqn = config.build()
 
 ray.init()
-NUM_EPISODES = 200
-CHECKPOINT_RATE = 10
+NUM_EPISODES = 2000
+CHECKPOINT_RATE = 100
 for episode in range(NUM_EPISODES):
     result = dqn.train()
     print(f"Completed Episode:{episode} of {NUM_EPISODES}")
