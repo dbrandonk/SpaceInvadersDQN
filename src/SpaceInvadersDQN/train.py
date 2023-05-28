@@ -21,7 +21,9 @@ exploration_config = {
     'epsilon_timesteps': 500000}
 config.exploration(explore=True, exploration_config=exploration_config)
 
-replay_buffer_config = {'type': 'MultiAgentPrioritizedReplayBuffer', 'prioritized_replay': -1, 'capacity': 200000, 'replay_sequence_length': 1}
+config.checkpointing(checkpoint_trainable_policies_only=True)
+
+replay_buffer_config = {'type': 'MultiAgentPrioritizedReplayBuffer', 'capacity': 100000, 'replay_sequence_length': 1}
 
 config.training(
     double_q=True,
@@ -35,6 +37,7 @@ config.training(
     optimizer={'type': 'Adam'},
     replay_buffer_config=replay_buffer_config,
     target_network_update_freq=10000,
+    td_error_loss_fn='huber',
     train_batch_size=32,
     training_intensity=None
     )
@@ -43,7 +46,7 @@ dqn = config.build()
 
 ray.init()
 NUM_EPISODES = 2000
-CHECKPOINT_RATE = 100
+CHECKPOINT_RATE = 50
 for episode in range(NUM_EPISODES):
     result = dqn.train()
     print(f"Completed Episode:{episode} of {NUM_EPISODES}")
