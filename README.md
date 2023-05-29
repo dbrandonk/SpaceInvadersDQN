@@ -15,3 +15,4 @@ To be run at the root of the project.
 
 - tuning?
 - mypy?
+- technical explanations?
