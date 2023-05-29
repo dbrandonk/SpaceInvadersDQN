@@ -1,3 +1,9 @@
+"""
+Configures and trains a Deep Q-Network (DQN) agent using Ray's RLlib library.
+The agent is trained on the 'SpaceInvaders-v4' environment.
+The configuration includes settings for the DQN's exploration strategy, replay buffer, and etc.
+"""
+
 import ray
 from ray.rllib.algorithms.dqn import DQNConfig
 
@@ -23,7 +29,10 @@ config.exploration(explore=True, exploration_config=exploration_config)
 
 config.checkpointing(checkpoint_trainable_policies_only=True)
 
-replay_buffer_config = {'type': 'MultiAgentPrioritizedReplayBuffer', 'capacity': 100000, 'replay_sequence_length': 1}
+replay_buffer_config = {
+    'type': 'MultiAgentPrioritizedReplayBuffer',
+    'capacity': 100000,
+    'replay_sequence_length': 1}
 
 config.training(
     double_q=True,
@@ -40,7 +49,7 @@ config.training(
     td_error_loss_fn='huber',
     train_batch_size=32,
     training_intensity=None
-    )
+)
 
 dqn = config.build()
 
@@ -53,4 +62,3 @@ for episode in range(NUM_EPISODES):
 
     if episode % CHECKPOINT_RATE == 0:
         dqn.save()
-
