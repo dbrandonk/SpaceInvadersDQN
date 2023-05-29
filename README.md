@@ -10,6 +10,7 @@ To be run at the root of the project.
 
 - python3 src/SpaceInvadersDQN/train.py trains the agent.
 - python3 src/SpaceInvadersDQN/run.py runs pretrained agent.
+- view training results with tensorboard.
 
 ## TODO
 
